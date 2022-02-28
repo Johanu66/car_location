@@ -24,11 +24,16 @@ Route::get('/home', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/car/create', function () {
-        return view('car.create');
-    })->name('create_car');
+    Route::get('/car/create', function () { return view('car.create'); })->name('create_car');
 
     Route::post('/car/store', [CarController::class, "store"])->name('store_car');
+
+    Route::get('/car/edit/{car}', [CarController::class, "edit"])->name("edit_car");
+
+    Route::post('/car/update/{car}', [CarController::class, "update"])->name("update_car");
+
+    Route::get('/car/destroy/{car}', [CarController::class, "destroy"])->name("destroy_car");
+    
 });
 
 Route::get('/cars', [CarController::class, "index"])->name('cars');

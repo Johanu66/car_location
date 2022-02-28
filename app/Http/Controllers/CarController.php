@@ -74,7 +74,8 @@ class CarController extends Controller
      */
     public function edit(Car $car)
     {
-        return view('edit');
+        /*$car = Car::find($car->id);*/
+        return view('car.edit', [ 'car'=>$car ]);
     }
 
     /**
@@ -86,7 +87,22 @@ class CarController extends Controller
      */
     public function update(UpdateCarRequest $request, Car $car)
     {
-        return view('update');
+
+        $request->validate([
+            'mark' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'plate_number' => ['required', 'string'],
+            'price_per_day' => ['required', 'integer'],
+        ]);
+
+        Car::find($car->id)->update([
+            'mark' => $request->mark,
+            'description' => $request->description,
+            'plate_number' => $request->plate_number,
+            'price_per_day' => $request->price_per_day,
+        ]);
+        
+        return redirect('cars');
     }
 
     /**
@@ -97,6 +113,7 @@ class CarController extends Controller
      */
     public function destroy(Car $car)
     {
-        return view('destroy');
+        Car::destroy($car->id);
+        return redirect('cars');
     }
 }
