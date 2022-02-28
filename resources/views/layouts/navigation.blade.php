@@ -1,5 +1,5 @@
 @auth
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky w-full top-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -15,6 +15,11 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('cars')" :active="request()->routeIs('cars')">
+                        {{ __('Cars') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -68,6 +73,11 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('cars')" :active="request()->routeIs('cars')">
+                {{ __('Cars') }}
+            </x-responsive-nav-link>
+        </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -92,7 +102,7 @@
     </div>
 </nav>
 @else
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 fixed w-full top-0">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky w-full top-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -111,7 +121,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav-link :href="route('cars')" :active="request()->routeIs('cars')">
                         {{ __('Cars') }}
                     </x-nav-link>
                 </div>
@@ -150,21 +160,26 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('cars')" :active="request()->routeIs('cars')">
+                {{ __('Cars') }}
+            </x-responsive-nav-link>
+        </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
 
             <div class="mt-3 space-y-1">
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+                <a href="\login" class="hover:no-underline">
+                    <x-button class="ml-3">
+                        {{ __('Log in') }}
+                    </x-button>
+                </a>
+                <a href="\register" class="hover:no-underline">
+                    <x-button class="ml-3">
+                        {{ __('Sign up') }}
+                    </x-button>
+                </a>
             </div>
         </div>
     </div>

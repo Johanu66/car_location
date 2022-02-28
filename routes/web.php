@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,16 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 })->name('home');
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/car/create', function () {
+        return view('car.create');
+    })->name('create_car');
+
+    Route::post('/car/store', [CarController::class, "store"])->name('store_car');
+});
+
+Route::get('/cars', [CarController::class, "index"])->name('cars');
 
 require __DIR__.'/auth.php';
