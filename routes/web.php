@@ -22,9 +22,11 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
+Route::get('/cars', [CarController::class, "index"])->name('cars');
+
 Route::middleware('auth')->group(function () {
 
-    Route::get('/car/create', function () { return view('car.create'); })->name('create_car');
+    Route::get('/car/create', [CarController::class, "create"])->name('create_car');
 
     Route::post('/car/store', [CarController::class, "store"])->name('store_car');
 
@@ -33,9 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/car/update/{car}', [CarController::class, "update"])->name("update_car");
 
     Route::get('/car/destroy/{car}', [CarController::class, "destroy"])->name("destroy_car");
-    
+
 });
 
-Route::get('/cars', [CarController::class, "index"])->name('cars');
 
 require __DIR__.'/auth.php';
