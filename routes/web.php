@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/car/update/{car}', [CarController::class, "update"])->name("update_car");
 
     Route::get('/car/destroy/{car}', [CarController::class, "destroy"])->name("destroy_car");
+
+    Route::get('/location/create/{car}', [LocationController::class, "create"])->name("create_location");
+
+    Route::post('/location/store', [LocationController::class, "store"])->name('store_location');
 
 });
 
