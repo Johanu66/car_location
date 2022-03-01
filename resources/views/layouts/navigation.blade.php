@@ -22,6 +22,18 @@
                         {{ __('Cars') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('my_locations')" :active="request()->routeIs('my_locations')">
+                        {{ __('My locations') }}
+                    </x-nav-link>
+                </div>
+                @if(Auth::user()->admin)
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('locations')" :active="request()->routeIs('locations')">
+                        {{ __('All locators') }}
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -78,6 +90,18 @@
                 {{ __('Cars') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('my_locations')" :active="request()->routeIs('my_locations')">
+                {{ __('My locations') }}
+            </x-responsive-nav-link>
+        </div>
+        @if(Auth::user()->admin)
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('locations')" :active="request()->routeIs('locations')">
+                {{ __('All locators') }}
+            </x-responsive-nav-link>
+        </div>
+        @endif
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

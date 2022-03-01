@@ -9,4 +9,9 @@ class Car extends Model
 {
     use HasFactory;
     protected $fillable = ['mark', 'description', 'plate_number', 'price_per_day'];
+
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Location;
 use App\Models\Car;
+use App\Models\User;
 use DateTime;
 
 class LocationController extends Controller
@@ -17,7 +18,20 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        if(auth()->user()->admin) {
+            $locations = Location::all();
+            return view('location.index', [ 'locations'=>$locations ]);
+        }
+        else{
+            abort(403);
+        }
+    }
+
+
+    public function my_locations()
+    {
+        $locations = auth()->user()->locations;
+        return view('location.my_locations', [ 'locations'=>$locations ]);
     }
 
     /**
@@ -39,7 +53,7 @@ class LocationController extends Controller
      */
     public function store(StoreLocationRequest $request)
     {
-        
+
         $request->validate([
             'start_at' => ['required', 'date'],
             'end_at' => ['required', 'date'],
@@ -106,6 +120,12 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        if(auth()->user()->admin or $location->user==auth()->user()) {
+            Location::destroy($location->id);
+            return redirect()->back();
+        }
+        else{
+            abort(403);
+        }
     }
 }

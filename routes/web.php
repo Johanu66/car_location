@@ -41,6 +41,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/location/store', [LocationController::class, "store"])->name('store_location');
 
+    Route::get('/locations', [LocationController::class, "index"])->name('locations');
+    
+    Route::get('/location/destroy/{location}', [LocationController::class, "destroy"])->name("destroy_location");
+
+    Route::get('/my_locations', [LocationController::class, "my_locations"])->name('my_locations');
+
 });
 
 
