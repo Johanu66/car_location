@@ -42,7 +42,8 @@ class LocationController extends Controller
      */
     public function create(Car $car)
     {
-        return view('location.create', [ 'car'=>$car ]);
+        $locations = $car->locations->sortBy('start_at');
+        return view('location.create', [ 'car'=>$car, 'locations'=>$locations ]);
     }
 
     /**
@@ -67,15 +68,27 @@ class LocationController extends Controller
         $interval = $datetime1->diff($datetime2);
         $days = $interval->format('%a');
 
-        $location = Location::create([
-            'start_at' => $request->start_at,
-            'end_at' => $request->end_at,
-            'total_price' => Car::find($request->car_id)->price_per_day*$days,
-            'car_id' => $request->car_id,
-            'user_id' => auth()->user()->id,
-        ]);
+        $date_unavailable = false;
+        $locations = Car::find($request->car_id)->locations;
+        foreach($locations as $location){
+            if(($datetime1 >= new DateTime($location->start_at) and $datetime1 <= new DateTime($location->end_at)) or ($datetime2 >= new DateTime($location->start_at) and $datetime1 <= new DateTime($location->end_at))){
+                $date_unavailable=true;
+            }
+        }
 
-        return redirect("cars");
+        if($date_unavailable){
+            return redirect()->back()->with('warning','The time slot you have entered is already occupied.');
+        }
+        else{
+            $location = Location::create([
+                'start_at' => $request->start_at,
+                'end_at' => $request->end_at,
+                'total_price' => Car::find($request->car_id)->price_per_day*$days,
+                'car_id' => $request->car_id,
+                'user_id' => auth()->user()->id,
+            ]);
+            return redirect("my_locations")->with('success','The car was successfully rented to you.');
+        }
     }
 
     /**
@@ -122,7 +135,7 @@ class LocationController extends Controller
     {
         if(auth()->user()->admin or $location->user==auth()->user()) {
             Location::destroy($location->id);
-            return redirect()->back();
+            return redirect()->back()->with('success','The location was successfully cancelled.');
         }
         else{
             abort(403);

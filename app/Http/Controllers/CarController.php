@@ -57,7 +57,7 @@ class CarController extends Controller
             'price_per_day' => $request->price_per_day,
         ]);
 
-        return redirect("cars");
+        return redirect("cars")->with('success','The car was successfully created.');;
     }
 
     /**
@@ -111,7 +111,7 @@ class CarController extends Controller
             'price_per_day' => $request->price_per_day,
         ]);
 
-        return redirect('cars');
+        return redirect('cars')->with('success','The car was successfully updated');;
     }
 
     /**
@@ -124,7 +124,7 @@ class CarController extends Controller
     {
         if(auth()->user()->admin) {
             Car::destroy($car->id);
-            return redirect('cars');
+            return redirect('cars')->with('success','The car was successfully destroyed.');;
         }
         else{
             abort(403);
