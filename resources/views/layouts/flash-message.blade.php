@@ -1,3 +1,4 @@
+@if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info') or $errors->any())
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-4">
     @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
@@ -34,3 +35,4 @@
     </div>
     @endif
 </div>
+@endif

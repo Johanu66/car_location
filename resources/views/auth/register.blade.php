@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <div style="height: calc(100vh - 65px);overflow:hidden;">
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -56,4 +57,5 @@
             </div>
         </form>
     </x-auth-card>
+    </div>
 </x-guest-layout>

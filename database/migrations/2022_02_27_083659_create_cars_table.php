@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('plate_number');
             $table->integer('price_per_day');
+            $table->string('image_name');
+            $table->string('image_path');
             $table->timestamps();
         });
     }

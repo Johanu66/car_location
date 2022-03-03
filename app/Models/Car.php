@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     use HasFactory;
-    protected $fillable = ['mark', 'description', 'plate_number', 'price_per_day'];
+    protected $fillable = ['mark', 'description', 'plate_number', 'price_per_day', 'image_name', 'image_path'];
 
     public function locations()
     {

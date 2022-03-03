@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
+use App\Models\Image;
 
 class CarController extends Controller
 {
@@ -48,13 +49,20 @@ class CarController extends Controller
             'description' => ['required', 'string'],
             'plate_number' => ['required', 'string'],
             'price_per_day' => ['required', 'integer'],
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
+
+        $file= $request->file('image');
+        $name= date('YmdHi').$file->getClientOriginalName();
+        $path = $file-> move(public_path('public/images'), $name);
 
         $car = Car::create([
             'mark' => $request->mark,
             'description' => $request->description,
             'plate_number' => $request->plate_number,
             'price_per_day' => $request->price_per_day,
+            'image_name' => $name,
+            'image_path' => $path,
         ]);
 
         return redirect("cars")->with('success','The car was successfully created.');;
@@ -102,13 +110,20 @@ class CarController extends Controller
             'description' => ['required', 'string'],
             'plate_number' => ['required', 'string'],
             'price_per_day' => ['required', 'integer'],
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
+        
+        $file= $request->file('image');
+        $name= date('YmdHi').$file->getClientOriginalName();
+        $path = $file-> move(public_path('public/images'), $name);
 
         Car::find($car->id)->update([
             'mark' => $request->mark,
             'description' => $request->description,
             'plate_number' => $request->plate_number,
             'price_per_day' => $request->price_per_day,
+            'image_name' => $name,
+            'image_path' => $path,
         ]);
 
         return redirect('cars')->with('success','The car was successfully updated');;

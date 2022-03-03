@@ -1,5 +1,5 @@
 <x-app-layout>
-
+<div style="height: calc(100vh - 65px);overflow:hidden;">
     <form method="POST" action="{{ route('store_location') }}" class="mx-auto max-w-7xl sm:px-6 sm:mt-5 lg:p-40">
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         @csrf
@@ -55,6 +55,7 @@
             </x-button>
         </div>
     </form>
+</div>
 </x-app-layout>
 <script>
     function get_total_price(){
