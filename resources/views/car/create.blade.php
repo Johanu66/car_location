@@ -1,6 +1,8 @@
 <x-app-layout>
 <div style="height: calc(100vh - 65px);overflow:hidden;">
-    <form method="POST" enctype="multipart/form-data" action="{{ route('store_car') }}" class="mx-auto max-w-3xl p-5 mt-20 rounded bg-white">
+    <form method="POST" enctype="multipart/form-data" action="{{ route('store_car') }}" class="mx-auto max-w-3xl p-5 lg:mt-20 rounded bg-white">
+
+        <h1 style="font-size: 2em;font-weight: bold;" class="text-center">Create a new Car</h1>
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         @csrf
 
