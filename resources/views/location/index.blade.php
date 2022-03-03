@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
     
+    @if($locations->count() > 0)
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-center">
             @foreach ($locations as $location)
@@ -35,5 +36,8 @@
                 </div>
             @endforeach
         </div>
+        @else
+            @include('layouts.empty')
+        @endif
     </div>
 </x-app-layout>

@@ -16,6 +16,7 @@
     @endif
     @endauth
     
+    @if($cars->count() > 0)
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-center">
             @foreach ($cars as $car)
@@ -53,5 +54,8 @@
                 </div>
             @endforeach
         </div>
+        @else
+            @include('layouts.empty')
+        @endif
     </div>
 </x-app-layout>

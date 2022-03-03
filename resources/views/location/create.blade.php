@@ -1,6 +1,6 @@
 <x-app-layout>
 <div style="height: calc(100vh - 65px);overflow:hidden;">
-    <form method="POST" action="{{ route('store_location') }}" class="mx-auto max-w-7xl sm:px-6 sm:mt-5 lg:p-40">
+    <form method="POST" action="{{ route('store_location') }}" class="mx-auto max-w-3xl p-5 mt-20 rounded bg-white">
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         @csrf
 
