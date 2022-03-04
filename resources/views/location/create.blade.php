@@ -42,7 +42,7 @@
                 <option>Click to see the list of unavailable dates</option>
                 @foreach ($locations as $location)
                 <option disabled>
-                    {{ $location->start_at }} ______to______ {{ $location->end_at }}
+                    {{ $location->start_at }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $location->end_at }}
                 </option>
                 @endforeach
             </select>

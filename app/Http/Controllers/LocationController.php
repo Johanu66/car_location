@@ -71,13 +71,13 @@ class LocationController extends Controller
         $date_unavailable = false;
         $locations = Car::find($request->car_id)->locations;
         foreach($locations as $location){
-            if(($datetime1 >= new DateTime($location->start_at) and $datetime1 <= new DateTime($location->end_at)) or ($datetime2 >= new DateTime($location->start_at) and $datetime1 <= new DateTime($location->end_at))){
+            if( ($datetime1 > $datetime2) or ($datetime1 >= new DateTime($location->start_at) and $datetime1 <= new DateTime($location->end_at)) or ($datetime2 >= new DateTime($location->start_at) and $datetime1 <= new DateTime($location->end_at)) or ($datetime1 < new DateTime($location->start_at) and $datetime2 > new DateTime($location->end_at)) ){
                 $date_unavailable=true;
             }
         }
 
         if($date_unavailable){
-            return redirect()->back()->with('warning','The time slot you have entered is already occupied.');
+            return redirect()->back()->with('warning','The time slot you have entered is already occupied or unavailable.');
         }
         else{
             $location = Location::create([
