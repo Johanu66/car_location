@@ -66,7 +66,7 @@ class LocationController extends Controller
         $datetime1 = new DateTime($start_at);
         $datetime2 = new DateTime($end_at);
         $interval = $datetime1->diff($datetime2);
-        $days = $interval->format('%a');
+        $days = $interval->format('%a')+1;
 
         $date_unavailable = false;
         $locations = Car::find($request->car_id)->locations;
